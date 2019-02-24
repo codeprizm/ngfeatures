@@ -1,69 +1,45 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
-version: 2
+# Cache key for CircleCI. We want to invalidate the cache whenever the Yarn lock file changes.
+var_1: &cache_key ngfeatures-{{ checksum "package.json" }}
+var_2: &default_docker_image circleci/node:10.12-browsers
+
+# Settings common to each job
+var_3: &job_defaults
+  working_directory: ~/ngfeatures
+  docker:
+    - image: *default_docker_image
+
+var_4: &save_cache
+  save_cache:
+    key: *cache_key
+    paths:
+    - "node_modules/"
+
+var_5: &npm_install
+  run: npm install
+
 jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:11.10-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
-
+  lint:
+    <<: *job_defaults
     steps:
-      # Checkout the code from the branch into the working_directory
-      - checkout
-      # Log the current branch
-      - run:
-        name: Show current branch
-        command: echo ${CIRCLE_BRANCH}
+    - checkout
+    - restore_cache:
+        key: *cache_key
+    - *npm_install
+    - run: npm run lint
+    - *save_cache
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+  test:
+    <<: *job_defaults
+    steps:
+    - checkout
+    - restore_cache:
+        key: *cache_key
+    - *npm_install
+    - run: npm run test
 
-      # Install project dependencies
-      - run:
-          name: Install local dependencies
-          command: npm install
-      # Cache local dependencies if they don't exist
-      - save_cache:
-          key: v1-dependencies-{{ checksum "package.json" }}
-          paths:
-              - node_modules
-      # Lint the source code
-      - run:
-          name: Linting
-          command: npm run lint
-      # Test the source code
-      - run:
-          name: Testing
-          command: npm run test
-      # Build project with different configuration based on
-      # the current branch
-      - run:
-          name: Building
-          command: npm run build
-              # |
-              # if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-              #     npm run build-qa
-              # elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-              #     npm run build-prod
-              # else
-              # npm run build
-              # fi
 workflows:
   version: 2
-  build_and_test:
+  default_workflow:
     jobs:
-      - build
-  
+    - lint
+    - test
