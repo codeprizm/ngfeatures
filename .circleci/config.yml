@@ -19,10 +19,10 @@ jobs:
     steps:
       # Checkout the code from the branch into the working_directory
       - checkout
-            # Log the current branch
-            - run:
-              name: Show current branch
-              command: echo ${CIRCLE_BRANCH}
+      # Log the current branch
+      - run:
+        name: Show current branch
+        command: echo ${CIRCLE_BRANCH}
 
       # Download and cache dependencies
       - restore_cache:
@@ -32,32 +32,32 @@ jobs:
             - v1-dependencies-
 
       # Install project dependencies
-            - run:
-                name: Install local dependencies
-                command: npm install
-            # Cache local dependencies if they don't exist
-            - save_cache:
-                key: v1-dependencies-{{ checksum "package.json" }}
-                paths:
-                    - node_modules
+      - run:
+          name: Install local dependencies
+          command: npm install
+      # Cache local dependencies if they don't exist
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+              - node_modules
       # Lint the source code
-            - run:
-                name: Linting
-                command: npm run lint
-            # Test the source code
-            - run:
-                name: Testing
-                command: npm run test
+      - run:
+          name: Linting
+          command: npm run lint
+      # Test the source code
+      - run:
+          name: Testing
+          command: npm run test
       # Build project with different configuration based on
-            # the current branch
-            - run:
-                name: Building
-                command: 
-                    # |
-                    # if [ "${CIRCLE_BRANCH}" == "staging" ]; then
-                    #     npm run build-qa
-                    # elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-                    #     npm run build-prod
-                    # else
-                    npm run build
-                    # fi
+      # the current branch
+      - run:
+          name: Building
+          command: npm run build
+              # |
+              # if [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              #     npm run build-qa
+              # elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+              #     npm run build-prod
+              # else
+              # npm run build
+              # fi
