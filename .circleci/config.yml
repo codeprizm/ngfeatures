@@ -23,12 +23,12 @@ jobs:
     steps:
     - checkout
     - run:
-      name: Install Chrome
-      command: |
-        curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo dpkg -i google-chrome.deb
-        sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
-        rm google-chrome.deb
+        name: Install Chrome
+        command: |
+          curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome.deb
+          sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
+          rm google-chrome.deb
     - restore_cache:
         key: *cache_key
     - *npm_install
@@ -57,6 +57,6 @@ workflows:
   version: 2
   default_workflow:
     jobs:
-    - lint
-    - unittest
+    #- lint
+    #- unittest
     - e2etest
