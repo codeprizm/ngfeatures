@@ -44,7 +44,7 @@ jobs:
     - restore_cache:
         key: *cache_key
     - *npm_install
-    - run: npm run test
+    - run: npm run e2e
 
 workflows:
   version: 2
