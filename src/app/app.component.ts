@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'ngfeatures';
   test() {
-    var t = "test";
-    
+    let t = 'test';
+
   }
 }

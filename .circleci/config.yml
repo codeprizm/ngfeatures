@@ -28,7 +28,16 @@ jobs:
     - run: npm run lint
     - *save_cache
 
-  test:
+  unittest:
+    <<: *job_defaults
+    steps:
+    - checkout
+    - restore_cache:
+        key: *cache_key
+    - *npm_install
+    - run: npm run test
+
+  e2etest:
     <<: *job_defaults
     steps:
     - checkout
@@ -42,4 +51,5 @@ workflows:
   default_workflow:
     jobs:
     - lint
-    - test
+    - unittest
+    - e2etest
