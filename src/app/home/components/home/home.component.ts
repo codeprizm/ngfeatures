@@ -15,13 +15,13 @@ export class HomeComponent implements OnInit {
   get today(): string {
     switch (new Date().getDay()) {
       case 1:
-        return 'Monday';
+        return 'Nope!! it\'s still Monday, gotta wait for 3 more days';
       case 2:
-        return 'Tuesday';
+        return 'Nah! it\'s still Tuesday';
       case 3:
         return 'Wednesday';
       case 4:
-        return 'Thursday';
+        return 'No it\'s Thursday! on the bright side, we are so close.';
       case 5:
         return 'Friday';
       case 6:
