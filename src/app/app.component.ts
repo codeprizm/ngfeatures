@@ -6,9 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'ngfeatures';
-  test() {
-    let t = 'test';
+  title = 'Question of our life';
 
-  }
 }

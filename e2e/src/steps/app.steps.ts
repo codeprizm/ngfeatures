@@ -16,5 +16,5 @@ Given(/^I am on the home page$/, async () => {
 When(/^I do nothing$/, () => {});
 
 Then(/^I should see the title$/, async () => {
-  expect(await page.getTitleText()).to.equal('Welcome to ngfeatures! test');
+  expect(await page.getTitleText()).to.equal('Question of our life');
 });
