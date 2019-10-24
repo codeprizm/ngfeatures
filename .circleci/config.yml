@@ -65,11 +65,7 @@ workflows:
   version: 2
   develop_workflow:
     jobs:
-      - build:
-          filters: 
-            branches: 
-              only: 
-                - develop
+      - build
       - lint:
           requires:
             - build
