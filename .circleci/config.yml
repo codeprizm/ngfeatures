@@ -65,17 +65,17 @@ workflows:
   version: 2
   develop_workflow:
     jobs:
-    - build
-        filters: 
-          branches: 
-            only: 
-              - develop
-    - lint
-      requires:
-        - build
-    - unittest
-      requires:
-        - build
-    - e2etest
-      requires:
-        - build
+      - build:
+          filters: 
+            branches: 
+              only: 
+                - develop
+      - lint:
+          requires:
+             build
+      - unittest:
+          requires:
+            - build
+      - e2etest:
+          requires:
+            - build
