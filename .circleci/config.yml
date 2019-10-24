@@ -66,16 +66,16 @@ workflows:
   develop_workflow:
     jobs:
     - build
-        filters:
-          branches:
-              only:
-                - develop
+        filters: 
+          branches: 
+            only: 
+              - develop
     - lint
       requires:
-        -build
+        - build
     - unittest
       requires:
-        -build
+        - build
     - e2etest
       requires:
-        -build
+        - build
