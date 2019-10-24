@@ -37,7 +37,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 4956000000
+              "duration": 4107000000
             }
           },
           {
@@ -49,8 +49,7 @@
               "location": "e2e\\src\\steps\\app.steps.ts:16"
             },
             "result": {
-              "status": "passed",
-              "duration": 1000000
+              "status": "passed"
             }
           },
           {
@@ -63,7 +62,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 43000000
+              "duration": 48000000
             }
           },
           {

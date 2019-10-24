@@ -27,7 +27,15 @@ jobs:
     - *npm_install
     - run: npm run lint
     - *save_cache
-
+  build:
+    <<: *job_defaults
+    steps:
+    - checkout    
+    - restore_cache:
+        key: *cache_key
+    - *npm_install
+    - run: npm run build
+    - *save_cache
   unittest:
     <<: *job_defaults
     steps:
@@ -55,8 +63,19 @@ jobs:
 
 workflows:
   version: 2
-  default_workflow:
+  develop_workflow:
     jobs:
-    #- lint
+    - build
+        filters: # using regex filters requires the entire branch to match
+          branches:
+            only: # only branches matching the below regex filters will run
+              - develop
+    - lint
+      requires:
+        -build
     - unittest
+      requires:
+        -build
     - e2etest
+      requires:
+        -build

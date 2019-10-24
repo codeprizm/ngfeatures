@@ -1,3 +1,14 @@
-<form novalidate>
-
+<form (submit)="login()" novalidate [formGroup]="loginFG">
+    <h2>Login to know</h2>
+    <mat-form-field>
+        <input matInput formControlName="username" placeholder="UserName">
+        <mat-error *ngIf="loginFG.get('username').touched && loginFG.get('username').invalid">Please enter user name
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="password" formControlName="password" placeholder="Password">
+        <mat-error *ngIf="loginFG.get('password').touched && loginFG.get('password').invalid">Please enter password
+        </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Login</button>
 </form>
