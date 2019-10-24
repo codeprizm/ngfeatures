@@ -68,8 +68,8 @@ workflows:
     - build
         filters:
           branches:
-            only:
-              - develop
+              only:
+                - develop
     - lint
       requires:
         -build
