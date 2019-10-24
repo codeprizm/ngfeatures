@@ -73,3 +73,9 @@ workflows:
       - lint:
           requires:
             - build
+      - unittest:
+          requires:
+            - build
+      - e2etest:
+          requires:
+            - build            
