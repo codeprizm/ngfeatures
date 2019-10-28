@@ -67,9 +67,9 @@ workflows:
     jobs:
       - build:
           filters: 
-            branches: 
-              only: 
-                - develop
+                branches: 
+                  only: 
+                    - develop
       - lint:
           requires:
             - build
@@ -78,4 +78,20 @@ workflows:
             - build
       - e2etest:
           requires:
-            - build            
+            - build     
+  release_workflow:
+    jobs:
+      - build:
+          filters: 
+                branches: 
+                  only: 
+                    - /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-[a-zA-Z\d][-a-zA-Z.\d]*)?(\+[a-zA-Z\d][-a-zA-Z.\d]*)?$/
+      - lint:
+          requires:
+            - build
+      - unittest:
+          requires:
+            - build
+      - e2etest:
+          requires:
+            - build         
