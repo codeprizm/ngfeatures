@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   get today(): string {
     switch (new Date().getDay()) {
       case 1:
-        return 'Nope!! it\'s still Monday, gotta wait for 3 more days';
+        return 'Nope!! it\'s still Monday, you just enjpyed a weekend,  gotta wait for 3 more days';
       case 2:
         return 'Nah! it\'s still Tuesday';
       case 3:
